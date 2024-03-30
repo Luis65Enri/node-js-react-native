@@ -30,6 +30,9 @@ const productos = db.define(
         stock_producto: {
             type: sequelize.INTEGER,
             allowNull: false,
+        },
+        imagen:{
+            type: sequelize.STRING(250)
         }
     },
     {
