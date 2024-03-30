@@ -1,0 +1,12 @@
+const { Router } = require('express');
+const controladorCategoria = require('../controladores/controlador_categorias');
+const { body, query } = require('express-validator');
+const { Op } = require('sequelize');
+const rutas = Router();
+rutas.get('/', controladorCategoria.Inicio);
+rutas.get('/buscar', controladorCategoria.Buscar);
+rutas.get('/listar', controladorCategoria.Listar);
+rutas.post('/guardar',controladorCategoria.Guardar);
+rutas.put('/editar',controladorCategoria.Editar);
+rutas.delete('/eliminar',controladorCategoria.Eliminar);
+module.exports = rutas;

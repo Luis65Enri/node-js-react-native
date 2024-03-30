@@ -1,0 +1,11 @@
+const { Router } = require('express');
+const controlador_rol = require('../controladores//controlador_roles');
+const { body, query } = require('express-validator');
+const { Op } = require('sequelize');
+const rutas = Router();
+rutas.get('/listar',controlador_rol.Listar);
+rutas.post('/guardar', controlador_rol.Guardar);
+rutas.put('/editar', controlador_rol.Editar);
+rutas.delete('/eliminar', controlador_rol.Eliminar);
+rutas.get('/buscar',controlador_rol.Buscar);
+module.exports = rutas;
