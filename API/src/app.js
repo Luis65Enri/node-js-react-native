@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
+const cors = require('cors');
 const sincronizarModelos = require('./configuraciones/sincronizar-modelos.js');//modelos creados en documento externo
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -8,7 +9,10 @@ app.set('port', PORT);
 app.use(morgan('common'));
 app.use(express.urlencoded({extended:false})); //comando para no encriptar la url//
 app.use(express.json());
-
+app.use(cors({
+    origin: 'http://localhost:8081',
+    methods: ['GET', 'POST']
+}));
 app.use('/api/img', express.static(path.join(__dirname, '../public/img/productos')));
 app.get('/', (req, res)=>{
     res.send("Hola Mundo");

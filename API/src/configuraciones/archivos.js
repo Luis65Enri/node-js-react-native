@@ -7,9 +7,11 @@ const almacenaProducto = multer.diskStorage({
     },
     filename: (req, file, cb)=>{
         if(file.mimetype == 'image/jpeg' || file.mimetype == 'image/png' || file.mimetype == 'image/jpg'){
-            const random = Math.round(Math.random()*(99998-10001))+10001;
+            const random = Math.round(Math.random()*(99998 - 10001)) + 10001;
             cb(null,
-                'producto-'+ Date.now()+'-'+random+req.query.id+'-'+file.mimetype.replace('/','.'));
+                'producto-'+ Date.now() + '-' + random + req.query.id + '-' + file.mimetype.replace('/', '.'));
+        }else {
+            cb(new Error('Tipo de archivo no soportado. Solo se permiten imágenes JPEG, PNG y JPG.'));
         }
     }
 });
