@@ -5,7 +5,7 @@ rutas.get('/', (req, res)=>{
         titulo: 'API TECHNOLOGY STORE Grupo 1',
         sección: '1601',
         docente: 'Carlos Flores',
-        autóres: 'Equipo 1'
+        autóres: 'Any Martinez, '+'Cesar Dominguez, '+'Luis Argueta, '+'Kevin Coello'
     }
     res.json(objeto);
 });

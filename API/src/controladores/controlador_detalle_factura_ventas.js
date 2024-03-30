@@ -1,51 +1,49 @@
 const { Model } = require('sequelize');
-const modelo_detalle_factura_ventas = require('../modelos/modelo_detalle_factura_venta');
+const modelo = require('../modelos/modelo_detalle_factura_venta');
 const { validationResult } = require('express-validator');
 const { Op } = require('sequelize');
 
-exports.Inicio = (req, res)=>{
+exports.inicio = (req, res)=>{
     const objeto={
-        titulo: 'Rutas detalle factura compra'
+        titulo: 'Rutas de facturas de venta'
     }
     res.json(objeto);
 }
-exports.Listar = async(req,res)=>{
-    const listaDfacturaV = await modelo_detalle_factura_ventas.findAll();
-    res.json(listaCategoria);
-}
-exports.Guardar = async(req,res) =>{
+exports.guardar = async(req,res) =>{
     const datos = req.body;
-    const {no_linea,cantidad,subtotal_linea,facturaCompraId,productoId}
+    const {cantidad,subtotal_linea,productoId,facturaventaId}
     = req.body;
-    await modelo_detalle_factura_ventas.create({
-        no_linea: no_linea,
-        cantidad: cantidad,
+    await modelo.create({
+        cantidad:cantidad,
         subtotal_linea:subtotal_linea,
-        facturaCompraId:facturaCompraId,
-        productoId:productoId
+        productoId:productoId,
+        facturaventaId:facturaventaId
     }).then((data)=>{
         res.json(data);
     }).catch((er)=>{
         res.json(er);
     });
 }
-exports.Editar = async(req,res) =>{
+exports.listar = async(req,res)=>{
+    const lista = await modelo.findAll();
+    res.json(lista);
+}
+exports.editar = async(req,res) =>{
     const datos = req.body;
     const {id}  = req.query;
-    const {no_linea,cantidad,subtotal_linea,facturaCompraId,productoId}
+    const {cantidad,subtotal_linea,productoId,facturaventaId}
     = req.body;
     try{
-        var buscarDFacturaV = await modelo_detalle_factura_ventas.findOne({where:{id: id}});
-        console.log(buscarDFacturaV);
-        if(!buscarDFacturaV){
+        var buscar_detallefacturac = await modelo.findOne({where:{id: id}});
+        console.log(buscar_facturac);
+        if(!buscar_facturac){
             res.json({msj:"El id del cliente no existe"});
         }else{
-            buscarDFacturaV.no_linea= no_linea;
-            buscarDFacturaV.cantidad= cantidad;
-            buscarDFacturaV.subtotal_linea= subtotal_linea;
-            buscarDFacturaV.facturaCompraId= facturaCompraId;
-            buscarDFacturaV.productoId= productoId;
-            await buscarDFacturaV.save()
+            buscar_detallefacturac.cantidad= cantidad;
+            buscar_detallefacturac.subtotal_linea= subtotal_linea;
+            buscar_detallefacturac.productoId= productoId;
+            buscar_detallefacturac.facturaventaId= facturaventaId;
+            await buscar_detallefacturac.save()
             .then((data)=>{
                 res.json(data);
             }).catch((er)=>{
@@ -57,26 +55,75 @@ exports.Editar = async(req,res) =>{
         res.json({msj:"Error en el servidor"});
     }
 }
-exports.Eliminar = async(req,res) =>{
-    var datos = req.body;
-    const {id}  = req.query;
-    const {nfacturaCompraId}
-    = req.body;
-    try{
-        var buscarDFacturaV = await modelo_detalle_factura_ventas.findOne({where:{id: id}});
-        console.log(buscarDFacturaV);
-        if(!buscarDFacturaV){
-            res.json({msj:"El id del cliente no existe"});
-        }else{
-            await modelo_detalle_factura_ventas.destroyed({where: {id: id}})
-            .then((data)=>{
-                res.json({msj:"Registro eliminado",datos: data});
-            }).catch((er)=>{
-                res.json(er);
-            });
+exports.eliminar = async(req,res)=>{
+    const {id} = req.query;
+    const validacion = validationResult(req);
+    if (validacion.errors.length > 0){
+        var msjerror = "";
+        validacion.errors.forEach(r => {
+            msjerror = msjerror + r.msg + ". ";
+        })
+        res.json({msj: "Hay errores en la petición", error:msjerror});
+    }
+    else{
+        try {
+            var busqueda = await modelo.findOne({ where: { id: id } });
+            console.log(busqueda);
+            if (!busqueda) {
+                res.json({ msj: "El id no existe" });
+            } else {
+                await modelo.destroy({ where: { id: id } })
+                    .then((data) => {
+                        res.json({ msj: "Registro eliminado", data: data });
+                    })
+                    .catch((er) => {
+                        res.json(er);
+                    });
+            }
+        } catch (error) {
+            res.json(error);
         }
-    }catch(error){
-        console.log(error);
-        res.json({msj:"Error en el servidor"});
+    }
+}
+//filtros
+exports.busqueda = async(req,res)=>{
+    const validacion = validationResult(req);
+
+if (validacion.errors.length > 0) {
+    const msjerror = validacion.errors.map(r => r.msg).join(". ");
+    res.json({ msj: "Hay errores en la petición", error: msjerror });
+} else {
+    try {
+        const busqueda = await modelo.findAll({
+            where: {
+                [Op.or]: [
+                    { productoId: req.query.total },
+                    { facturaventaId: req.query.usuarioId },
+                ]
+            }
+        });
+        res.json(busqueda);
+    } catch (error) {
+        res.json(error);
+    }
+}
+
+}
+exports.busqueda_id = async(req,res)=>{
+    const validacion = validationResult(req);
+    if (validacion.errors.length > 0) {
+        var msjerror="";
+        validacion.errors.forEach( r => {
+            msjerror = msjerror + r.msg + ". ";
+        })
+        res.json({msj: "Hay errores en la petición", error: msjerror});
+    }
+    else{
+        try{
+            const busqueda = await modelo.findOne({where:{ facturaventaId:req.query.factura}});
+            res.json(busqueda)
+        } catch (error) {
+            res.json(error);
+        }
     }
 }

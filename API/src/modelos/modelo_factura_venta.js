@@ -12,7 +12,7 @@ const factura_ventas = db.define(
             }
         },
         total_venta:{
-            type: sequelize.DECIMAL(18, 2),
+            type: sequelize.DOUBLE,
             allowNull: false
         }
     },

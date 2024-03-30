@@ -8,7 +8,7 @@ const categorias = db.define(
             type: sequelize.STRING(50),
             allowNull: false,
             validate: {
-                notEmpty: {msg: 'El campo nombre de  la categoria no puede ir vacío'}
+                notEmpty: {msg: 'El campo "nombre categoria" no puede ir vacío.'}
             }
         }
     },

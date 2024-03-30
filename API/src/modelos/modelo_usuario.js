@@ -1,4 +1,5 @@
 const sequelize = require('sequelize');
+const bcrypt = require('bcrypt');
 const db = require('../configuraciones/db-conect');
 
 const usuarios = db.define(
@@ -34,20 +35,34 @@ const usuarios = db.define(
             type: sequelize.ENUM('M', 'F'),
             allowNull:false,
             validate: {
-                notEmpty: {msg: 'El campo contraseña no puede ir vacío.'}
+                notEmpty: {msg: 'El campo genero no puede ir vacío.'}
             }
         },
         contraseña_usuario:{
             type: sequelize.STRING(250),
             allowNull:false,
             validate: {
-                notEmpty: {msg: 'El campo genero no puede ir vacío.'}
+                notEmpty: {msg: 'El campo contraseña no puede ir vacío.'}
             }
         },
     },
     {
         tableName: 'usuarios',
-        timestamps: true
+        timestamps: true,
+        hooks: {
+            beforeCreate(usuarios){
+                usuarios.contraseña_usuario = bcrypt.hashSync(
+                    usuarios.contraseña_usuario,
+                    bcrypt.genSaltSync(10)
+                );
+            },
+            beforeUpdate(usuarios){
+                usuarios.contraseña_usuario = bcrypt.hashSync(
+                    usuarios.contraseña_usuario,
+                    bcrypt.genSaltSync(10)
+                );
+            },
+        },
     },
 );
 

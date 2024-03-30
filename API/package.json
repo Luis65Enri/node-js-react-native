@@ -5,23 +5,21 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./src/app.js",
-    "start": "node src/app.js"
+    "dev": "nodemon ./src/app.js"
   },
   "author": "Cesar Dominguez, Luis Argueta, Any Martinez y Kevin Coello.",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
-    "body-parser": "^1.20.2",
-    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
     "express-validator": "^7.0.1",
+    "fs": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
-    "mysql2": "^3.9.2",
-    "passport": "^0.7.0",
-    "passport-jwt": "^4.0.1",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.9.1",
+    "path": "^0.12.7",
     "sequelize": "^6.37.1"
   },
   "devDependencies": {

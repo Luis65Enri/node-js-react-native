@@ -14,7 +14,7 @@ const productos = db.define(
 
         descripcion_producto: {
             type: sequelize.STRING(50),
-            allowNull: false,                   
+            allowNull: false,
         },
 
         tipo_producto: {

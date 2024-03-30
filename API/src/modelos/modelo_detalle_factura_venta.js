@@ -4,13 +4,6 @@ const db = require('../configuraciones/db-conect');
 const detalle_factura_ventas = db.define(
     'detalle_factura_ventas',
     {
-        no_linea:{
-            type: sequelize.INTEGER,
-            allowNull:false,
-            validate: {
-                notEmpty: {msg: 'El campo fecha no puede ir vacío'}
-            }
-        },
         cantidad:{
             type: sequelize.INTEGER,
             allowNull:false,

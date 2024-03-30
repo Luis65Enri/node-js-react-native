@@ -1,11 +1,26 @@
 const { Router } = require('express');
-const controladoruser = require('../controladores/controlador_usuarios');
+const controlador_usuarios = require('../controladores/controlador_usuarios');
 const { body, query } = require('express-validator');
 const { Op } = require('sequelize');
 const rutas = Router();
-rutas.get('/', controladoruser.Inicio)
-rutas.get('/listar', controladoruser.Listar);
-rutas.post('/guardar', controladoruser.Guardar);
-rutas.put('/editar', controladoruser.Editar);
-rutas.delete('/eliminar', controladoruser.Eliminar);
+rutas.get('/', controlador_usuarios.inicio);
+rutas.post('/guardar',
+body('nombre_usuario').notEmpty().withMessage("Ingrese un valor en el nombre"),
+body('apellido_usuario').notEmpty().withMessage("Ingrese un valor en el apellido"),
+body('genero_usuario').notEmpty().withMessage("Ingrese un valor en el genero"),
+body('contraseña_usuario').notEmpty().withMessage("ingrese una contraseña"),controlador_usuarios.guardar);
+rutas.get('/listar', controlador_usuarios.listar);
+rutas.put('/editar',query("id").isInt().withMessage("El id debe ser un numero entero"),controlador_usuarios.editar);
+rutas.delete('/eliminar',query("id").isInt().withMessage("El id debe ser un numero entero"),controlador_usuarios.eliminar);
+rutas.get('/buscar',
+query("nombre").optional().notEmpty().withMessage("No se permiten valores vacios"),
+query("apellido").optional().notEmpty().withMessage("No se permiten valores vacios"),
+query("correo").optional().notEmpty().withMessage("No se permiten valores vacios"),
+query("telefono").optional().notEmpty().withMessage("No se permiten valores vacios"),
+query("nombre").optional().notEmpty().withMessage("No se permiten valores vacios"),
+query("genero").optional().notEmpty().withMessage("No se permiten valores vacios"),
+controlador_usuarios.busqueda);
+rutas.get('/buscar=correo',query("correo").notEmpty().withMessage("No se permite valores vacíos en la búsqueda"), controlador_usuarios.busqueda_correo);
+rutas.get('/buscar=id',query("id").isInt().withMessage("El id debe ser un numero entero"),controlador_usuarios.busqueda_id);
+
 module.exports = rutas;
