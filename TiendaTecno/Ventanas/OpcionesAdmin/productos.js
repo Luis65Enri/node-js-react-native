@@ -18,11 +18,11 @@ const CompProductos = () => {
         setCart([...cart, product]);
     };
 
-    const clearCart = () => {
+    function clearCart() {
         setCart([]);
-    };
+    }
 
-    const removeFromCart = (productId) => {
+    function removeFromCart(productId) {
         setCart(cart.filter(item => item.id !== productId));
     };
 
@@ -58,8 +58,8 @@ const CompProductos = () => {
                 visible={modalVisible}
                 onRequestClose={() => {
                     setModalVisible(!modalVisible);
-                }}
-            >
+                }
+            }>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         {cart.map((item, index) => (
