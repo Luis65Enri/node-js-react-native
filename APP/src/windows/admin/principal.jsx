@@ -93,16 +93,12 @@ const CompAdmin = () => {
       }}
     >
       <Drawer.Screen
-        name="Peril"
+        name="Perfil"
         options={{
           drawerLabel: "Perfil",
           title: "Home",
           drawerIcon: () => (
-            <MaterialIcons
-              name="design-services"
-              size={20}
-              color={"#573EFF"}
-            />
+            <MaterialIcons name="perm-identity" size={20} color={"#573EFF"} />
           ),
         }}
         component={PerfilUsuario}
@@ -111,13 +107,8 @@ const CompAdmin = () => {
         name="Home"
         options={{
           drawerLabel: "Productos",
-          title: "Home",
           drawerIcon: () => (
-            <MaterialIcons
-              name="design-services"
-              size={20}
-              color={"#573EFF"}
-            />
+            <MaterialIcons name="public" size={20} color={"#573EFF"} />
           ),
         }}
         component={CompProductos}
@@ -150,7 +141,11 @@ const CompAdmin = () => {
           drawerLabel: "Servicios",
           title: "Home",
           drawerIcon: () => (
-            <MaterialIcons name="design-services" size={20} color={"#573EFF"} />
+            <MaterialIcons
+              name="miscellaneous-services"
+              size={20}
+              color={"#573EFF"}
+            />
           ),
         }}
         component={CompServicios}
@@ -162,7 +157,7 @@ const CompAdmin = () => {
           title: "Home",
           drawerIcon: () => (
             <MaterialIcons
-              name="branding-watermark"
+              name="widgets"
               size={20}
               color={"#573EFF"}
             />
@@ -177,7 +172,7 @@ const CompAdmin = () => {
           title: "Home",
           drawerIcon: () => (
             <MaterialIcons
-              name="design-services"
+              name="supervised-user-circle"
               size={20}
               color={"#573EFF"}
             />

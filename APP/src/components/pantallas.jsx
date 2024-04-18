@@ -1,8 +1,10 @@
 import { useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import axios from "axios";
 import React, { useContext, useEffect } from "react";
 import Cliente from "../../Ventanas/cliente";
 import Empleado from "../../Ventanas/empleado";
+import { urlRol } from "../config/urls";
 import UsuarioContext from "../context/Usuario/usuarioContext";
 import Admin from "../windows/admin/principal";
 import Login from "../windows/login";
@@ -20,22 +22,37 @@ const Pantallas = () => {
         await setDatos();
       }
       if (sesionIniciada && rolId !== null) {
-        let navigateTo;
-        switch (rolId) {
-          case 1:
-            navigateTo = "Admin";
-            break;
-          case 2:
-            navigateTo = "Empleado";
-            break;
-          case 6:
-            navigateTo = "Cliente";
-            break;
-          default:
-            console.log("rolId no reconocido:", rolId);
-            return;
+        try {
+          const response = await axios.get(urlRol + "/listar");
+          console.log("Respuesta de la API:", response.data);
+          const roles = response.data;
+          let navigateTo;
+          const rolUsuario = roles.find((rol) => rol.id === rolId);
+          if (rolUsuario) {
+            console.log("Rol encontrado:", rolUsuario);
+            const tipoRolLower = rolUsuario.tipo_rol.toLowerCase().trim();
+            switch (tipoRolLower) {
+              case "administrador":
+                navigateTo = "Admin";
+                break;
+              case "empleado":
+                navigateTo = "Empleado";
+                break;
+              case "cliente":
+                navigateTo = "Cliente";
+                break;
+              default:
+                console.log("Tipo de rol no reconocido:", rolUsuario.tipo_rol);
+                return;
+            }
+            console.log("Navegando a:", navigateTo);
+            navigation.navigate(navigateTo);
+          } else {
+            console.log("Rol no encontrado para el usuario actual.");
+          }
+        } catch (error) {
+          console.error(error);
         }
-        navigation.navigate(navigateTo);
       }
     };
     initialize();
