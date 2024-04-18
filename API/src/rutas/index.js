@@ -1,12 +1,9 @@
 const { Router } = require('express');
+const controladorInicio = require('../controladores/controlador_Inicio');
 const rutas = Router();
-rutas.get('/', (req, res)=>{
-    const objeto={
-        titulo: 'API TECHNOLOGY STORE Grupo 1',
-        sección: '1601',
-        docente: 'Carlos Flores',
-        autóres: 'Any Martinez, '+'Cesar Dominguez, '+'Luis Argueta, '+'Kevin Coello'
-    }
-    res.json(objeto);
-});
+rutas.get('/', controladorInicio.Inicio);
+rutas.get('/otra', controladorInicio.Otra);
+rutas.post('/datos', controladorInicio.Datos);
+rutas.put('/datos', controladorInicio.Modificar);
+rutas.delete('/datos', controladorInicio.Eliminar);
 module.exports = rutas;

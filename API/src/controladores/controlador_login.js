@@ -58,5 +58,3 @@ exports.refreshToken = async (req, res) => {
         return res.json({ error: 'Token inválido' });
     }
 };
-
-

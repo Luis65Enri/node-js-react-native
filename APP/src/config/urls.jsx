@@ -1,0 +1,9 @@
+export const urlAPI = "https://06bw3q0r-3000.use.devtunnels.ms/api";
+export const urlIniciarSecion = urlAPI + "/autenticacion/iniciosesion";
+export const urlProductos = urlAPI + "/producto/";
+export const urlProveedor = urlAPI + "/proveedor/";
+export const urlMarca = urlAPI + "/marca/";
+export const urlRol = urlAPI + "/rol";
+export const urlServicio = urlAPI + "/servicio/";
+export const urlCategoria = urlAPI + "/categoria/";
+export const urlImagenesUsuario = urlAPI + "/imagenes/";
