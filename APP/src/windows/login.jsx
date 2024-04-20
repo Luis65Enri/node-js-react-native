@@ -6,6 +6,7 @@ import {
   Text,
   TextInput,
   View,
+  TouchableOpacity
 } from "react-native";
 import hamburguesa from "../../assets/Logo.jpg";
 import Cargando from "../components/cargando";

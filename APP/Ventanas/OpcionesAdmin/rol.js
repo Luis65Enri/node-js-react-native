@@ -21,6 +21,46 @@ const CompRol = () => {
   const [rolEnEdicion, setRolEnEdicion] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [rolSeleccionado, setRolSeleccionado] = useState(null);
+  const [busqueda, setBusqueda] = useState("");
+
+  const busquedaRoles = async () => {
+    try {
+      let rolesResultantes = [];
+
+      if (busqueda === "") {
+        const response = await axios.get(`${urlRol}/listar`);
+        rolesResultantes = Array.isArray(response.data) ? response.data : [];
+      } else {
+        const responseTipo = await axios.get(`${urlRol}/buscar`, {
+          params: {
+            tipo: busqueda,
+          },
+        });
+        const responseId = await axios.get(`${urlRol}/buscar`, {
+          params: {
+            id: busqueda,
+          },
+        });
+
+        rolesResultantes = [
+          ...(Array.isArray(responseTipo.data) ? responseTipo.data : []),
+          ...(Array.isArray(responseId.data) ? responseId.data : []),
+        ];
+
+        rolesResultantes = Array.from(
+          new Set(rolesResultantes.map((rol) => rol.id))
+        ).map((id) => rolesResultantes.find((rol) => rol.id === id));
+      }
+
+      setRoles(rolesResultantes);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    busquedaRoles();
+  }, [busqueda]);
 
   useEffect(() => {
     const obtenerRoles = async () => {
@@ -118,7 +158,13 @@ const CompRol = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.titulo}>Roles</Text>
+     
+      <TextInput
+        style={styles.input}
+        placeholder="Buscar Rol por Tipo"
+        onChangeText={(text) => setBusqueda(text)} // Asegúrate de que estás pasando una función que actualiza el estado
+        value={busqueda} // Asegúrate de que estás pasando el estado actual aquí
+      />
       <FlatList
         data={roles}
         keyExtractor={(item) => item.id.toString()}
@@ -231,7 +277,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ccc",
   },
   celdaID: {
-    margin:2,
+    margin: 2,
     width: 30,
   },
   celda: {

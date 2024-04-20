@@ -9,14 +9,14 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-
+import { urlProductos } from "../../src/config/urls";
 const CompProductos = () => {
   const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    fetch("https://06bw3q0r-3000.use.devtunnels.ms/api/producto/listar")
+    fetch(urlProductos + "/listar")
       .then((response) => response.json())
       .then((data) => setProducts(data))
       .catch((error) => console.error("Error:", error));
@@ -50,7 +50,7 @@ const CompProductos = () => {
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.text}>Productos</Text>
+        <Text style={styles.text}>Catalogo de los productos</Text>
       </View>
       <FlatList
         data={products}

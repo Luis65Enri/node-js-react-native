@@ -96,7 +96,7 @@ const CompAdmin = () => {
         name="Perfil"
         options={{
           drawerLabel: "Perfil",
-          title: "Home",
+          title: "Perfil",
           drawerIcon: () => (
             <MaterialIcons name="perm-identity" size={20} color={"#573EFF"} />
           ),
@@ -104,9 +104,10 @@ const CompAdmin = () => {
         component={PerfilUsuario}
       />
       <Drawer.Screen
-        name="Home"
+        name="Productos"
         options={{
           drawerLabel: "Productos",
+          title:'Productos',
           drawerIcon: () => (
             <MaterialIcons name="public" size={20} color={"#573EFF"} />
           ),
@@ -117,7 +118,7 @@ const CompAdmin = () => {
         name="Proveedor"
         options={{
           drawerLabel: "Proveedor",
-          title: "Home",
+          title: "Proveedor",
           drawerIcon: () => (
             <MaterialIcons name="approval" size={20} color={"#573EFF"} />
           ),
@@ -128,7 +129,7 @@ const CompAdmin = () => {
         name="Categoria"
         options={{
           drawerLabel: "Categoria",
-          title: "Home",
+          title: "Categoria",
           drawerIcon: () => (
             <MaterialIcons name="category" size={20} color={"#573EFF"} />
           ),
@@ -139,7 +140,7 @@ const CompAdmin = () => {
         name="Servicios"
         options={{
           drawerLabel: "Servicios",
-          title: "Home",
+          title: "Servicios",
           drawerIcon: () => (
             <MaterialIcons
               name="miscellaneous-services"
@@ -154,13 +155,9 @@ const CompAdmin = () => {
         name="Marcas"
         options={{
           drawerLabel: "Marcas",
-          title: "Home",
+          title: "Marcas",
           drawerIcon: () => (
-            <MaterialIcons
-              name="widgets"
-              size={20}
-              color={"#573EFF"}
-            />
+            <MaterialIcons name="widgets" size={20} color={"#573EFF"} />
           ),
         }}
         component={CompMarca}
@@ -169,7 +166,7 @@ const CompAdmin = () => {
         name="Roles"
         options={{
           drawerLabel: "Roles",
-          title: "Home",
+          title: "Roles",
           drawerIcon: () => (
             <MaterialIcons
               name="supervised-user-circle"

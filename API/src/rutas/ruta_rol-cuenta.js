@@ -24,11 +24,16 @@ rutas.delete(
 );
 rutas.get(
   "/buscar",
-  query("id").optional().isInt().withMessage("El id debe ser un numero entero"),
-  query("tipo")
-    .optional()
-    .notEmpty()
-    .withMessage("No se permiten valores vacios"),
+  [
+    query("id")
+      .optional()
+      .isInt()
+      .withMessage("El id debe ser un numero entero"),
+    query("tipo")
+      .optional()
+      .notEmpty()
+      .withMessage("No se permiten valores vacios"),
+  ],
   controlador_rol.busqueda
 );
 rutas.get(

@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import React, { useContext, useEffect, useState } from "react";
 import {
@@ -11,7 +12,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import hamburguesa from "../../assets/Logo.jpg";
 import AxiosImagen from "../components/axiosImagen";
 import Cargando from "../components/cargando";

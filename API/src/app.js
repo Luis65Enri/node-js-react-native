@@ -27,7 +27,8 @@ app.use(
   "/api/usuarios",
   express.static(path.join(__dirname, "../public/img/usuarios"))
 );
-app.use("/api/imagenes", express.static(path.join(__dirname, "public/img/usuarios")));
+app.use("/api/imagenes/usuarios", express.static(path.join(__dirname, "public/img/usuarios")));
+app.use("/api/imagenes/productos",express.static(path.join(__dirname,"./public/img/productos")));
 //-----Rutas-----//
 app.use("/api/", require("./rutas"));
 app.use("/api/rol", require("./rutas/ruta_rol-cuenta"));
